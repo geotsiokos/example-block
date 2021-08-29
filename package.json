@@ -1,0 +1,21 @@
+{
+  "name": "example-block",
+  "version": "1.0.0",
+  "description": "Example Block",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "author": "gtsiokos",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@wordpress/scripts": "^12.6.1"
+  },
+  "dependencies": {
+		"@wordpress/data": "^6.0.0",
+		"classnames": "^2.3.1",
+		"react-select": "^4.3.1"
+	}
+}
