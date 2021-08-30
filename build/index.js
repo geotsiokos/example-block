@@ -101,6 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -113,17 +116,61 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('exa
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Example Block', 'example-block'),
   icon: 'smiley',
   category: 'design',
-  edit: function edit() {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      style: blockStyle
-    }, "While in the back-end.");
+  attributes: {
+    content: {
+      type: 'array',
+      source: 'children',
+      selector: 'p'
+    }
   },
-  save: function save() {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      style: blockStyle
-    }, "While in the front-end.");
+
+  /*edit() {
+  	return (
+  		<div style={blockStyle}>While in the back-end.</div>
+  	);
+  },*/
+  edit: function edit(props) {
+    var content = props.attributes.content,
+        setAttributes = props.setAttributes,
+        className = props.className;
+
+    var onChangeContent = function onChangeContent(newContent) {
+      setAttributes({
+        content: newContent
+      });
+    };
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"], {
+      tagName: "p",
+      className: className,
+      onChange: onChangeContent,
+      value: content
+    });
+  },
+
+  /*save() {
+  	return (
+  		<div style={blockStyle}>While in the front-end.</div>
+  	);
+  }*/
+  save: function save(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
+      tagName: "p",
+      value: props.attributes.content
+    });
   }
 });
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["blockEditor"]; }());
 
 /***/ }),
 
