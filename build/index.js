@@ -121,6 +121,16 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('exa
       type: 'array',
       source: 'children',
       selector: 'p'
+    },
+    alignment: {
+      type: 'string',
+      default: 'none'
+    }
+  },
+  example: {
+    attributes: {
+      content: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Hello world'),
+      alignment: 'right'
     }
   },
 
@@ -129,23 +139,55 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('exa
   		<div style={blockStyle}>While in the back-end.</div>
   	);
   },*/
+
+  /*edit: ( props ) => {
+  	const {
+  		attributes: { content },
+  		setAttributes,
+  		className,
+  	} = props;
+  	const onChangeContent = ( newContent ) => {
+  		setAttributes( { content: newContent } );
+  	};
+  	return (
+  		<RichText
+  			tagName="p"
+  			className={ className }
+  			onChange={ onChangeContent }
+  			value={ content }
+  		/>
+  	);
+  },*/
   edit: function edit(props) {
-    var content = props.attributes.content,
-        setAttributes = props.setAttributes,
+    var _props$attributes = props.attributes,
+        content = _props$attributes.content,
+        alignment = _props$attributes.alignment,
         className = props.className;
 
     var onChangeContent = function onChangeContent(newContent) {
-      setAttributes({
+      props.setAttributes({
         content: newContent
       });
     };
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"], {
-      tagName: "p",
+    var onChangeAlignment = function onChangeAlignment(newAlignment) {
+      props.setAttributes({
+        alignment: newAlignment === undefined ? 'none' : newAlignment
+      });
+    };
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["BlockControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["AlignmentToolbar"], {
+      value: alignment,
+      onChange: onChangeAlignment
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"], {
       className: className,
+      style: {
+        textAlign: alignment
+      },
+      tagName: "p",
       onChange: onChangeContent,
       value: content
-    });
+    }));
   },
 
   /*save() {
@@ -153,8 +195,15 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('exa
   		<div style={blockStyle}>While in the front-end.</div>
   	);
   }*/
+
+  /*save: ( props ) => {
+  	return (
+  		<RichText.Content tagName="p" value={ props.attributes.content } />
+  	);
+  },*/
   save: function save(props) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
+      className: "gutenberg-examples-align-".concat(props.attributes.alignment),
       tagName: "p",
       value: props.attributes.content
     });
